@@ -26,4 +26,10 @@ public class ClientService {
         Page<Client> page = repository.findAll(pageable);
         return page.map(ClientDTO::new);
     }
+
+    @Transactional(readOnly = true)
+    public ClientDTO findById(Long id) {
+        Client entity = repository.findById(id).orElseThrow();
+        return new ClientDTO(entity);
+    }
 }
