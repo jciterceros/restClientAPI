@@ -3,8 +3,7 @@ package com.jciterceros.restClientAPI.services;
 import com.jciterceros.restClientAPI.dto.ClientDTO;
 import com.jciterceros.restClientAPI.entities.Client;
 import com.jciterceros.restClientAPI.repositories.ClientRepository;
-
-
+import com.jciterceros.restClientAPI.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,7 +28,8 @@ public class ClientService {
 
     @Transactional(readOnly = true)
     public ClientDTO findById(Long id) {
-        Client entity = repository.findById(id).orElseThrow();
+        Client entity = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Id Cliente Inexistente"));
         return new ClientDTO(entity);
     }
 }
