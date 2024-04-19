@@ -4,6 +4,8 @@ import com.jciterceros.restClientAPI.entities.Client;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
 
+import java.time.LocalDate;
+
 public class ClientDTO {
     private Long id;
     @NotBlank(message = "Campo e obrigatório")
@@ -11,10 +13,10 @@ public class ClientDTO {
     private String cpf;
     private Double income;
     @PastOrPresent(message = "Data de nascimento não pode ser futura")
-    private String birthDate;
+    private LocalDate birthDate;
     private Integer children;
 
-    public ClientDTO(Long id, String name, String cpf, Double income, String birthDate, Integer children) {
+    public ClientDTO(Long id, String name, String cpf, Double income, LocalDate birthDate, Integer children) {
         this.id = id;
         this.name = name;
         this.cpf = cpf;
@@ -27,7 +29,7 @@ public class ClientDTO {
         name = entity.getName();
         cpf = entity.getCpf();
         income = entity.getIncome();
-        birthDate = entity.getBirthDate().toString();
+        birthDate = entity.getBirthDate();
         children = entity.getChildren();
     }
 
@@ -47,7 +49,7 @@ public class ClientDTO {
         return income;
     }
 
-    public String getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
